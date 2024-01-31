@@ -1,0 +1,67 @@
+{
+  "profiles": {
+    "Kx.Availability": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CUSTOMER_HUB_APPID": "7",
+        "CUSTOMER_HUB_ROLE_ID": "4",
+        "AUTH_URL": "https://subscription.kxcloud.net/",
+        "HTTP_LIFETIME_SECONDS": "20",
+        "USER_TENANCY_LIST_CLAIMS": "https://kxcloud.net/tenancy",
+        "HTTP_NAMED_CLIENT": "AuthService",
+        "PERMISSION_POLICY": "CustomerHubUsers",
+        "M2M_CLIENT_ID": "{{resolve:secretsmanager:application/tenant-admin-bff:SecretString:clientID}}",
+        "M2M_CLIENT_SECRET": "{{resolve:secretsmanager:application/tenant-admin-bff:SecretString:secret}}",
+        "KEY_CLOAK_URL": "https://sso.mykinetic.io/auth/realms/__m2m/protocol/openid-connect/token",
+        "DATA_LOAD_TIMEOUT_SECONDS": "29",
+        "LOCATIONS_URL": "http://127.0.0.1:5290/",
+        "BEDROOMS_URL": "http://127.0.0.1:5290/",
+        "CONFIG_URL": "http://127.0.0.1:5290/",
+        "AWS_REGION": "eu-west-1",
+        "AWS_CORE_API_ROLE": "baconRoll",
+        "DEFAULT_PAGE_SIZE": "500",
+        "AWS_XRAY_DAEMON_ADDRESS": "http://127.0.0.1:2000"       
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5291"
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "CUSTOMER_HUB_APPID": "7",
+        "CUSTOMER_HUB_ROLE_ID": "4",
+        "AUTH_URL": "https://subscription.kxcloud.net/",
+        "HTTP_LIFETIME_SECONDS": "20",
+        "USER_TENANCY_LIST_CLAIMS": "https://kxcloud.net/tenancy",
+        "HTTP_NAMED_CLIENT": "AuthService",
+        "PERMISSION_POLICY": "CustomerHubUsers",
+        "M2M_CLIENT_ID": "{{resolve:secretsmanager:application/tenant-admin-bff:SecretString:clientID}}",
+        "M2M_CLIENT_SECRET": "{{resolve:secretsmanager:application/tenant-admin-bff:SecretString:secret}}",
+        "KEY_CLOAK_URL": "https://sso.mykinetic.io/auth/realms/__m2m/protocol/openid-connect/token",
+        "DATA_LOAD_TIMEOUT_HOURS": "0.5",
+        "LOCATIONS_URL": "http://127.0.0.1:5290/",
+        "BEDROOMS_URL": "http://127.0.0.1:5290/",
+        "CONFIG_URL": "http://127.0.0.1:5290/",
+        "AWS_REGION": "eu-west-1",
+        "AWS_CORE_API_ROLE": "baconRoll",
+        "DEFAULT_PAGE_SIZE": "500",
+        "AWS_XRAY_DAEMON_ADDRESS": "http://127.0.0.1:2000"
+      }
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:5290",
+      "sslPort": 44322
+    }
+  }
+}

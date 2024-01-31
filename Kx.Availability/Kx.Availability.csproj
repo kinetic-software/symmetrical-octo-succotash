@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>    
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <LangVersion>10</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="6.0.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kx.Availability.Data.Mongo\Kx.Availability.Data.Mongo.csproj" />
+    <ProjectReference Include="..\Kx.Availability.Data\Kx.Availability.Data.csproj" />
+    <ProjectReference Include="..\Kx.Core.Common\Kx.Core.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="logs\**" />    
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="logs\**" />
+  </ItemGroup>
+  
+</Project>

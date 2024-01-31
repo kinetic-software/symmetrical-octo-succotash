@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32804.467
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kx.Availability", "Kx.Availability\Kx.Availability.csproj", "{076A0C06-D3FA-448B-AA8F-96F5189D832E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kx.Availability.Data", "Kx.Availability.Data\Kx.Availability.Data.csproj", "{221A22C5-9827-4E9D-9CC7-4C297248D572}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kx.Availability.Tests", "Kx.Availability.Tests\Kx.Availability.Tests.csproj", "{458AFD7D-D7D6-478A-BE1D-6E87CCB1047E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kx.Availability.Data.Mongo", "Kx.Availability.Data.Mongo\Kx.Availability.Data.Mongo.csproj", "{0FC210B7-9460-4915-8F8B-898568F0674F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kx.Core.Common", "Kx.Core.Common\Kx.Core.Common.csproj", "{84F7961E-689C-41D2-8371-4C960310672E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kx.Core.HttpMocks", "Kx.Core.HttpMocks\Kx.Core.HttpMocks.csproj", "{43F164A9-8A40-4D68-9058-ACF81F41152B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kx.Docker.Common", "Kx.Docker.Common\Kx.Docker.Common.csproj", "{9CA18FEC-4A5D-44D9-9D3A-6D1EA67A0065}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{076A0C06-D3FA-448B-AA8F-96F5189D832E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{076A0C06-D3FA-448B-AA8F-96F5189D832E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{076A0C06-D3FA-448B-AA8F-96F5189D832E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{076A0C06-D3FA-448B-AA8F-96F5189D832E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{221A22C5-9827-4E9D-9CC7-4C297248D572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{221A22C5-9827-4E9D-9CC7-4C297248D572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{221A22C5-9827-4E9D-9CC7-4C297248D572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{221A22C5-9827-4E9D-9CC7-4C297248D572}.Release|Any CPU.Build.0 = Release|Any CPU
+		{458AFD7D-D7D6-478A-BE1D-6E87CCB1047E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{458AFD7D-D7D6-478A-BE1D-6E87CCB1047E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{458AFD7D-D7D6-478A-BE1D-6E87CCB1047E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{458AFD7D-D7D6-478A-BE1D-6E87CCB1047E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FC210B7-9460-4915-8F8B-898568F0674F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FC210B7-9460-4915-8F8B-898568F0674F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FC210B7-9460-4915-8F8B-898568F0674F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FC210B7-9460-4915-8F8B-898568F0674F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84F7961E-689C-41D2-8371-4C960310672E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84F7961E-689C-41D2-8371-4C960310672E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84F7961E-689C-41D2-8371-4C960310672E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84F7961E-689C-41D2-8371-4C960310672E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43F164A9-8A40-4D68-9058-ACF81F41152B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43F164A9-8A40-4D68-9058-ACF81F41152B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43F164A9-8A40-4D68-9058-ACF81F41152B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43F164A9-8A40-4D68-9058-ACF81F41152B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CA18FEC-4A5D-44D9-9D3A-6D1EA67A0065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CA18FEC-4A5D-44D9-9D3A-6D1EA67A0065}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CA18FEC-4A5D-44D9-9D3A-6D1EA67A0065}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CA18FEC-4A5D-44D9-9D3A-6D1EA67A0065}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D75DD6A-96A5-441A-871E-0D4528DC2C01}
+	EndGlobalSection
+EndGlobal

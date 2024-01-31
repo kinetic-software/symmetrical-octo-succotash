@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>  
+    <LangVersion>10</LangVersion>  
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.7.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="coverlet.collector" Version="3.1.2" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Serilog.Sinks.XUnit" Version="3.0.3" />
+    <PackageReference Include="SolidToken.SpecFlow.DependencyInjection" Version="3.9.3" />
+    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
+    <PackageReference Include="SpecFlow.xUnit" Version="3.9.74" />
+    <PackageReference Include="xunit" Version="2.4.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>    
+    <ProjectReference Include="..\Kx.Availability.Data\Kx.Availability.Data.csproj" />    
+    <ProjectReference Include="..\Kx.Availability\Kx.Availability.csproj" />
+    <ProjectReference Include="..\Kx.Availability.Data.Mongo\Kx.Availability.Data.Mongo.csproj" />
+    <ProjectReference Include="..\Kx.Core.Common\Kx.Core.Common.csproj" />
+    <ProjectReference Include="..\Kx.Core.HttpMocks\Kx.Core.HttpMocks.csproj" />
+    <ProjectReference Include="..\Kx.Docker.Common\Kx.Docker.Common.csproj" />
+  </ItemGroup>
+
+</Project>
