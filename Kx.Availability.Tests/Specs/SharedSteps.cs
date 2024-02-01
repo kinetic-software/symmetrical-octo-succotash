@@ -133,7 +133,7 @@ public class SharedSteps : LoggedTestSteps
             {
                 foreach (var item in items)
                 {
-                    await MongoTestData.InsertAsync(item, ChangeTableType.AvailabilityMongoModel);
+                    await MongoTestData.InsertAsync(item);
                 }
             }
         }

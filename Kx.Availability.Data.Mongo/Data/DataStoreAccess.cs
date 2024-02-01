@@ -32,12 +32,6 @@ public class DataStoreAccess<T> : IDataAggregationStoreAccess<T> where T : class
             await _collection.InsertManyAsync(models.Data);
         }
     }
-
-    public async Task InsertAsync(T data) => await _collection.InsertOneAsync(data);
-
-    public async Task InsertManyAsync(IEnumerable<T> dataList) => await _collection.InsertManyAsync(dataList);
-    public async Task UpdateAsync(FilterDefinition<T> filter, UpdateDefinition<T> update) => await _collection.UpdateManyAsync(filter, update);
-
     public async Task AddIndex(CreateIndexModel<T> indexModel)
     {
         await _collection.Indexes.CreateOneAsync(indexModel);
@@ -53,6 +47,4 @@ public class DataStoreAccess<T> : IDataAggregationStoreAccess<T> where T : class
             await _database.DropCollectionAsync(_collectionName);
         }
     }
-
-    public async Task DeleteManyAsync(FilterDefinition<T> filter) => await _collection.DeleteManyAsync(filter);
 }

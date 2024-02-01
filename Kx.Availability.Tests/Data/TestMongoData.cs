@@ -14,7 +14,7 @@ internal class TestMongoData : ITestData
     }
     
 
-    public async Task InsertAsync(IDataModel item, ChangeTableType tableName)
+    public async Task InsertAsync(IDataModel item)
     {
         switch (item)
         {
