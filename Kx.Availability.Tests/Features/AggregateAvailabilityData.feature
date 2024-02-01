@@ -13,10 +13,8 @@
       	"page":1,
       	"data":[
       		{
-      		"id": "location-guid-123",
-      		"name": "West Wing",
-      		"externalId": 2,
-      		"type": "block"			
+      			"id": "location-123",
+      			"name": "West Wing"
       		}
       	]		
       }		
@@ -29,13 +27,9 @@
         "page":1,
         "data":[
         	{
-		        "externalId": 1,
+    				"roomId": "room-1",
 		        "name": "Squalid Hovel",
-		        "blockId": 2, 
-		        "capacity": 1, 
-		        "maxCapacity": 1,
-		        "externalTypeId": 1,
-	        	"inactive": true
+		        "locationId": "location-123"
 	     		}
       	]
       }		
@@ -63,26 +57,16 @@
       """
         [
           {
-            "id": "mongo-guid-1234",
+            "id": "mongo-1234",
             "tenantId": "13",
-            "roomId": 1,
+            "roomId": "room-1",
             "locations": [
               {
-                "id": "location-guid-123",
-                "type": "block",
+                "id": "location-123",
                 "name": "West Wing",
-                "isDirectLocation": true,
-                "meta": {
-                  "externalId": 2,
-                  "entityVersion": 0
-                }
+                "isDirectLocation": true
               }
-            ],
-            "displayOrder": 0,
-            "meta": {
-              "externalId": 1,
-              "entityVersion": 0
-            }    
+            ]
           }
         ]		
       """
@@ -107,22 +91,16 @@
       """
       [
 			  {
-			    "id": "mongo-guid-1235",
+			    "id": "mongo-1235",
 			    "tenantId": "45",
-			    "roomId": 7,
+			    "roomId": "room-7",
 			    "locations": [
 			      {
-			        "id": "location-guid-123",
-			        "type": "block",
+			        "id": "location-123",
 			        "name": "West Wing",
-			        "isDirectLocation": true,
-			        "meta": {
-			          "externalId": 2,
-			          "entityVersion": 0
-			        }
+			        "isDirectLocation": true
 			      }
-			    ],
-			    "displayOrder": 0    
+			    ]
 			  }
 			]
       """
@@ -132,48 +110,28 @@
       """
 			[
 			  {
-			    "id": "mongo-guid-1235",
+			    "id": "mongo-1235",
 			    "tenantId": "45",
-			    "roomId": 7,
+			    "roomId": "room-7",
 			    "locations": [
 			      {
-			        "id": "location-guid-123",
-			        "type": "block",
+			        "id": "location-123",
 			        "name": "West Wing",
-			        "isDirectLocation": true,
-			        "meta": {
-			          "externalId": 2,
-			          "entityVersion": 0
-			        }
+			        "isDirectLocation": true
 			      }
-			    ],
-			    "displayOrder": 0,
-			    "meta": {
-			      "externalId": 0,
-			      "entityVersion": 0
-			    }
+			    ]
 			  },
 			  {
-			    "id": "mongo-guid-1234",
+			    "id": "mongo-1234",
 			    "tenantId": "13",
-			    "roomId": 1,
+			    "roomId": "room-1",
 			    "locations": [
 			      {
-			        "id": "location-guid-123",
-			        "type": "block",
+			        "id": "location-123",
 			        "name": "West Wing",
-			        "isDirectLocation": true,
-			        "meta": {
-			          "externalId": 2,
-			          "entityVersion": 0
-			        }
+			        "isDirectLocation": true
 			      }
-			    ],
-			    "displayOrder": 0,
-			    "meta": {
-			      "externalId": 1,
-			      "entityVersion": 0
-			    }
+			    ]
 			  }
 			]	
       """

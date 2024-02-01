@@ -9,11 +9,8 @@ namespace Kx.Availability.Data.Mongo.Models;
 public class AvailabilityMongoModel : IEntity, ITenantDataModel
 {
     public string TenantId { get; set; } = string.Empty;
-    public int RoomId { get; set; }
-    public int? CommercialRoomTypeId { get; set; }
-    public MetaModel Meta { get; init; } = new();
+    public string RoomId { get; set; } = string.Empty;
     public List<LocationModel> Locations { get; set; } = new();
-    public int DisplayOrder;
     
     [BsonId] public string? ID { get; set; }
 

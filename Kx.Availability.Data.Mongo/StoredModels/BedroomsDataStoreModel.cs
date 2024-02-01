@@ -19,11 +19,7 @@ public class BedroomsDataStoreModel : IEntity, IDataStoreModel
         return false;
     }
 
-    public int ExternalId { get; set; }
     public string Name { get; set; } = string.Empty;
-    public int BlockId { get; set; } //LocationID
-    public int Capacity { get; set; } = 1;
-    public int MaxCapacity { get; set; } = 1;
-    public int ExternalTypeId { get; set; }
-    public bool Inactive { get; set; }
+    public string LocationID { get; set; } = string.Empty;
+    public string RoomId { get; set; } = string.Empty;
 }

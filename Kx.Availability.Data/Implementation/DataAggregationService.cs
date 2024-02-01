@@ -74,7 +74,7 @@ public class DataAggregationService : IDataAggregationService
     private async Task CreateRoomsIndexes()
     {
         var indexBuilder = Builders<BedroomsDataStoreModel>.IndexKeys;
-        var indexModel = new CreateIndexModel<BedroomsDataStoreModel>(indexBuilder.Ascending(x => x.ExternalId));
+        var indexModel = new CreateIndexModel<BedroomsDataStoreModel>(indexBuilder.Ascending(x => x.RoomId));
         await _roomsData.AddIndex(indexModel);
     }  
 
@@ -136,15 +136,11 @@ public class DataAggregationService : IDataAggregationService
                 }
 
                 availabilityModel.TenantId = _tenant.TenantId;
-                availabilityModel.RoomId = room.ExternalId;
-                availabilityModel.Meta.ExternalId = room.ExternalId;
-                
+                availabilityModel.RoomId = room.RoomId;
                 
                 var addLocations = AddLocationModels(room);
                 availabilityModel.Locations.AddRange(addLocations);
                 
-
-                availabilityModel.DisplayOrder = 0; 
                 aggregatedAvailabilityModel.Availability.Add(availabilityModel);
             }
           
@@ -163,9 +159,8 @@ public class DataAggregationService : IDataAggregationService
         return new AvailabilityMongoModel
         {
             TenantId = _tenant.TenantId,
-            RoomId = 0, 
-            Locations = new List<LocationModel>(), 
-            DisplayOrder = 0
+            RoomId = string.Empty, 
+            Locations = new List<LocationModel>()
         };
     }
 
@@ -179,19 +174,13 @@ public class DataAggregationService : IDataAggregationService
             /* Add the direct parent area */
             var tempLocations =
                 locationsQuery?
-                    .Where(l => l.ExternalId == room.BlockId 
+                    .Where(l => l.Id == room.LocationID 
                                 && (l.Type.ToLower() != "area" && l.Type.ToLower() != "site"))
                     .Select(loc => new LocationModel
                     {
                         Id = loc.Id,
-                        Type = loc.Type,
                         Name = loc.Name,
                         ParentId = loc.ParentId,
-                        Meta = new MetaModel
-                        {
-                            ExternalId = loc.ExternalId,
-                            EntityVersion = 1
-                        },
                         IsDirectLocation = true
                     }).ToList();
 
@@ -212,14 +201,8 @@ public class DataAggregationService : IDataAggregationService
                         .Select(loc => new LocationModel
                         {
                             Id = loc.Id,
-                            Type = loc.Type,
                             Name = loc.Name,
                             ParentId = loc.ParentId,
-                            Meta = new MetaModel
-                            {
-                                ExternalId = loc.ExternalId,
-                                EntityVersion = 1
-                            },
                             IsDirectLocation = true
                         });
 
@@ -376,8 +359,6 @@ public class DataAggregationService : IDataAggregationService
     {
         await _aggregateData.UpdateStateAsync(
             StateEventType.CycleError,
-            changeType,
-            false,
             true,
             ex.ToString());
 

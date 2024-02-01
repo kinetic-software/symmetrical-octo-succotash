@@ -8,7 +8,7 @@ public interface IDataAccessAggregation : IDataAccess
     Task InsertAsync(IDataModel data);    
     Task UpdateAsync();
     
-    Task UpdateStateAsync(StateEventType state, string? entity, bool isSuccess = false, bool isCompleted = false, string? exception = null);
+    Task UpdateStateAsync(StateEventType state, bool isCompleted = false, string? exception = null);
     Task InsertStateAsync(ITenantDataModel stateRecord);
     Task<int> CountAsync();    
     void StartStateRecord();

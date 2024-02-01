@@ -154,7 +154,7 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
                 await InsertManyAvailabilityAsync(tempTenantAvailability);
             }
         }
-        await UpdateStateAsync(StateEventType.CycleFinished, "All", true, true);
+        await UpdateStateAsync(StateEventType.CycleFinished, true);
     }
 
     private async Task InsertManyAvailabilityAsync(IEnumerable<AvailabilityMongoModel> tempTenantAvailability)
@@ -165,8 +165,8 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
    
 
     public async Task UpdateStateAsync(
-        StateEventType state, string? entity,
-        bool isSuccess = false, bool isCompleted = false, string? exception = null)
+        StateEventType state,
+        bool isCompleted = false, string? exception = null)
     {
         var stateRecord = await _stateTableCollection
             .AsQueryable()

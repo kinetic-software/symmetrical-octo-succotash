@@ -2,9 +2,5 @@
 public enum LocationType
 {
     Locations,
-    Rooms,
-    RoomBookings,
-    StudentRoomType,
-    CommercialCapacity,
-    CommercialRestrictions
+    Rooms
 }
