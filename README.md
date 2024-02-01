@@ -1,13 +1,15 @@
 # Senior C# Backend Test Repo
 
 ## The task
-This is very badly designed code. Your task is to refactor the solution and document your intentions.
-If you can't fit in the given timeframe, we will evaluate your intentions and any WIP you check in.
+This is very badly designed code that needs to be refactored. Your task is to identify the issues and come up with a better design.
+Document, or implement your proposed changes.
 
-Keep in mind that this is an incomplete service. Our future requirements include a search endpoint, and
-processing event driven data updates following our CQRS design.
+Keep in mind that this is an incomplete service. Our future requirements include a search endpoint, and processing event driven data updates following our CQRS design.
+We also know that in the future this API will connect to another database which may not be MongoDB.
 
 Because this service relies on two other services that you do not have access to you'll have to rely on the tests to ensure that your changes haven't broken anything.
+
+We have a multi-tenant environment that spans over multiple jurisdictions. Some of our APIs also handle PIIs, so security is important to us.
 
 ## Prerequisites
 These projects target .NET 8.0 so you'll need to ensure you have the [.NET 8.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) installed. The tests use create a docker container for the MongoDB database that's used in the service so you'll also need to have [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed for this container to run.
