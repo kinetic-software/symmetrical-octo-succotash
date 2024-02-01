@@ -1,11 +1,11 @@
 ﻿Feature: AggregateAvailabilityData
 
-  Background: 
+  Background:
     Given I have a clean database    
     And My tenant id is "13"    
     And I have set an HttpRequestHandler for Locations
-    And I have set an HttpRequestHandler for Rooms   
-    Then I call the locations Api and get the following locations data
+    And I have set an HttpRequestHandler for Rooms
+    And The Locations API returns the following:
       """
       {
       	"totalPages":1,
@@ -15,30 +15,30 @@
       		{
       		"id": "location-guid-123",
       		"name": "West Wing",
-      		"germId": 2,
+      		"externalId": 2,
       		"type": "block"			
       		}
       	]		
       }		
       """
-    And I call the Bedrooms Api to get the following rooms data
+    And The Bedrooms API returns the following:
       """
       {
-           "totalPages":1,
-           "totalItems":1,
-           "page":1,
-           "data":[
-             {
-      	  "germId": 1,
-      	  "name": "Squalid Hovel",
-      	  "blockId": 2, 
-      	  "capacity": 1, 
-      	  "maxCapacity": 1,
-      	  "germTypeId": 1,
-      	  "inactive": true
-      	}
-           ]
-         }		
+        "totalPages":1,
+        "totalItems":1,
+        "page":1,
+        "data":[
+        	{
+		        "externalId": 1,
+		        "name": "Squalid Hovel",
+		        "blockId": 2, 
+		        "capacity": 1, 
+		        "maxCapacity": 1,
+		        "externalTypeId": 1,
+	        	"inactive": true
+	     		}
+      	]
+      }		
       """    
 
   @clearStateData @clearMongoTestData
@@ -76,14 +76,14 @@
                 "name": "West Wing",
                 "isDirectLocation": true,
                 "meta": {
-                  "germId": 2,
+                  "externalId": 2,
                   "entityVersion": 0
                 }
               }
             ],
             "displayOrder": 0,
             "meta": {
-              "germId": 1,
+              "externalId": 1,
               "entityVersion": 0
             }    
           }
@@ -111,77 +111,77 @@
       """
     And I have the following availability in my database:
       """
-     [
-  {
-    "id": "mongo-guid-1235",
-    "tenantId": "45",
-    "roomId": 7,
-    "locations": [
-      {
-        "id": "location-guid-123",
-        "type": "block",
-        "name": "West Wing",
-        "isDirectLocation": true,
-        "meta": {
-          "germId": 2,
-          "entityVersion": 0
-        }
-      }
-    ],
-    "displayOrder": 0    
-  }
-]
+      [
+			  {
+			    "id": "mongo-guid-1235",
+			    "tenantId": "45",
+			    "roomId": 7,
+			    "locations": [
+			      {
+			        "id": "location-guid-123",
+			        "type": "block",
+			        "name": "West Wing",
+			        "isDirectLocation": true,
+			        "meta": {
+			          "externalId": 2,
+			          "entityVersion": 0
+			        }
+			      }
+			    ],
+			    "displayOrder": 0    
+			  }
+			]
       """
     When I request Tenants Data to be loaded into the Mongodb
     Then I receive a No Content response
     And I see the following availability in my database:
       """
-[
-  {
-    "id": "mongo-guid-1235",
-    "tenantId": "45",
-    "roomId": 7,
-    "locations": [
-      {
-        "id": "location-guid-123",
-        "type": "block",
-        "name": "West Wing",
-        "isDirectLocation": true,
-        "meta": {
-          "germId": 2,
-          "entityVersion": 0
-        }
-      }
-    ],
-    "displayOrder": 0,
-    "meta": {
-      "germId": 0,
-      "entityVersion": 0
-    }
-  },
-  {
-    "id": "mongo-guid-1234",
-    "tenantId": "13",
-    "roomId": 1,
-    "locations": [
-      {
-        "id": "location-guid-123",
-        "type": "block",
-        "name": "West Wing",
-        "isDirectLocation": true,
-        "meta": {
-          "germId": 2,
-          "entityVersion": 0
-        }
-      }
-    ],
-    "displayOrder": 0,
-    "meta": {
-      "germId": 1,
-      "entityVersion": 0
-    }
-  }
-]	
+			[
+			  {
+			    "id": "mongo-guid-1235",
+			    "tenantId": "45",
+			    "roomId": 7,
+			    "locations": [
+			      {
+			        "id": "location-guid-123",
+			        "type": "block",
+			        "name": "West Wing",
+			        "isDirectLocation": true,
+			        "meta": {
+			          "externalId": 2,
+			          "entityVersion": 0
+			        }
+			      }
+			    ],
+			    "displayOrder": 0,
+			    "meta": {
+			      "externalId": 0,
+			      "entityVersion": 0
+			    }
+			  },
+			  {
+			    "id": "mongo-guid-1234",
+			    "tenantId": "13",
+			    "roomId": 1,
+			    "locations": [
+			      {
+			        "id": "location-guid-123",
+			        "type": "block",
+			        "name": "West Wing",
+			        "isDirectLocation": true,
+			        "meta": {
+			          "externalId": 2,
+			          "entityVersion": 0
+			        }
+			      }
+			    ],
+			    "displayOrder": 0,
+			    "meta": {
+			      "externalId": 1,
+			      "entityVersion": 0
+			    }
+			  }
+			]	
       """
 
   @clearStateData @clearMongoTestData

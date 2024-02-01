@@ -40,14 +40,14 @@ public class AggregateAvailabilityDataSteps : LoggedTestSteps
         _httpClientFactory = httpClientFactory;        
     }
 
-    [Then(@"I call the locations Api and get the following locations data")]
-    public void ThenICallTheLocationsApiAndGetTheFollowingLocationsData(string jsonData)
+    [Given(@"The Locations API returns the following:")]
+    public void CallLocationsApi(string jsonData)
     {
         _locRequest?.Reply(HttpStatusCode.OK,  jsonData, "application/json");
     }
     
     [Given(@"I have set an HttpRequestHandler for Rooms")]
-    public void GivenIHaveSetAnHttpRequestHandlerForRooms()
+    public void SetupBedroomsApi()
     {
         var uri = new UriBuilder 
         { 
@@ -62,8 +62,8 @@ public class AggregateAvailabilityDataSteps : LoggedTestSteps
             .Get(uri.ToString());
     }
     
-    [Then(@"I call the Bedrooms Api to get the following rooms data")]
-    public void ThenICallTheBedroomsApiToGetTheFollowingRoomsData(string jsonData)
+    [Given(@"The Bedrooms API returns the following:")]
+    public void CallBedroomsApi(string jsonData)
     {
         _roomRequest?.Reply(HttpStatusCode.OK, jsonData, "application/json");    
     }
@@ -76,7 +76,7 @@ public class AggregateAvailabilityDataSteps : LoggedTestSteps
     }
 
     [Given(@"I have set an HttpRequestHandler for Locations")]
-    public void GivenIHaveSetAnHttpRequestHandlerForLocations()
+    public void SetupLocationsApi()
     {
         var uri = new UriBuilder
         {
@@ -94,7 +94,7 @@ public class AggregateAvailabilityDataSteps : LoggedTestSteps
 
 
     [When(@"I request Tenants Data to be loaded into the Mongodb")]
-    public async Task WhenIRequestTenantsDataToBeLoadedIntoTheMongodb()
+    public async Task MakeRequest()
     {              
         var result = await _aggregationService.ReloadOneTenantsDataAsync();
         SharedSteps.ActualStatusCode = result.statusCode;
@@ -103,7 +103,7 @@ public class AggregateAvailabilityDataSteps : LoggedTestSteps
 
 
     [Given(@"I have the following data in the state table")]
-    public async Task GivenIHaveTheFollowingDataInTheStateTable(string jsonData)
+    public async Task PreloadStateTable(string jsonData)
     {
         if (SharedSteps.MongoTestData == null)
         {
@@ -130,19 +130,19 @@ public class AggregateAvailabilityDataSteps : LoggedTestSteps
     }
 
     [Then(@"I receive a ExpectationFailed response")]
-    public void ThenIReceiveAExpectationFailedResponse()
+    public void AssertExpectationFailedResponse()
     {
         SharedSteps.ActualStatusCode.Should().Be(HttpStatusCode.ExpectationFailed);
     }
 
     [Then(@"I see the following message:")]
-    public void ThenISeeTheFollowingMessage(string multilineText)
+    public void AssertResponse(string multilineText)
     {
         SharedSteps.ErrorResult.Should().Be(multilineText);
     }
 
     [Given(@"I have the following data in the state table that started past the timeout")]
-    public async Task GivenIHaveTheFollowingDataInTheStateTableThatStartedPastTheTimeout(string jsonData)
+    public async Task PreloadOldStateData(string jsonData)
     {
         
         if (SharedSteps.MongoTestData == null)

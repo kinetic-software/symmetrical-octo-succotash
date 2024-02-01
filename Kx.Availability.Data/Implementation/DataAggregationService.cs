@@ -64,7 +64,7 @@ public class DataAggregationService : IDataAggregationService
     {
         var indexBuilder = Builders<LocationsDataStoreModel>.IndexKeys;
         var indexModel = new CreateIndexModel<LocationsDataStoreModel>(indexBuilder
-            .Ascending(x => x.GermId)
+            .Ascending(x => x.ExternalId)
             .Ascending(x => x.Type)
             .Ascending(x => x.Id)
             .Ascending(p => p.ParentId));
@@ -74,7 +74,7 @@ public class DataAggregationService : IDataAggregationService
     private async Task CreateRoomsIndexes()
     {
         var indexBuilder = Builders<BedroomsDataStoreModel>.IndexKeys;
-        var indexModel = new CreateIndexModel<BedroomsDataStoreModel>(indexBuilder.Ascending(x => x.GermId));
+        var indexModel = new CreateIndexModel<BedroomsDataStoreModel>(indexBuilder.Ascending(x => x.ExternalId));
         await _roomsData.AddIndex(indexModel);
     }  
 
@@ -136,8 +136,8 @@ public class DataAggregationService : IDataAggregationService
                 }
 
                 availabilityModel.TenantId = _tenant.TenantId;
-                availabilityModel.RoomId = room.GermId;
-                availabilityModel.Meta.GermId = room.GermId;
+                availabilityModel.RoomId = room.ExternalId;
+                availabilityModel.Meta.ExternalId = room.ExternalId;
                 
                 
                 var addLocations = AddLocationModels(room);
@@ -179,7 +179,7 @@ public class DataAggregationService : IDataAggregationService
             /* Add the direct parent area */
             var tempLocations =
                 locationsQuery?
-                    .Where(l => l.GermId == room.BlockId 
+                    .Where(l => l.ExternalId == room.BlockId 
                                 && (l.Type.ToLower() != "area" && l.Type.ToLower() != "site"))
                     .Select(loc => new LocationModel
                     {
@@ -189,7 +189,7 @@ public class DataAggregationService : IDataAggregationService
                         ParentId = loc.ParentId,
                         Meta = new MetaModel
                         {
-                            GermId = loc.GermId,
+                            ExternalId = loc.ExternalId,
                             EntityVersion = 1
                         },
                         IsDirectLocation = true
@@ -217,7 +217,7 @@ public class DataAggregationService : IDataAggregationService
                             ParentId = loc.ParentId,
                             Meta = new MetaModel
                             {
-                                GermId = loc.GermId,
+                                ExternalId = loc.ExternalId,
                                 EntityVersion = 1
                             },
                             IsDirectLocation = true

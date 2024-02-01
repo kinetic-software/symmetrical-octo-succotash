@@ -73,7 +73,7 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
         {
             new(indexBuilder.Ascending(x => x.TenantId)),
             new(indexBuilder.Ascending(x => x.TenantId).Ascending(x => x.RoomId)),            
-            new(indexBuilder.Ascending(x => x.TenantId).Ascending("Locations._id").Ascending("Locations.Meta.GermId").Ascending("Locations.Meta.EntityVersion")),
+            new(indexBuilder.Ascending(x => x.TenantId).Ascending("Locations._id").Ascending("Locations.Meta.ExternalId").Ascending("Locations.Meta.EntityVersion")),
             new(indexBuilder.Ascending(x => x.TenantId).Ascending("Locations.Type"))
         };
 
