@@ -2,7 +2,7 @@
 
 ## The task
 This is very badly designed code that needs to be refactored. Your task is to identify the issues and come up with a better design.
-Document, or implement your proposed changes.
+Fork this repo and share your repo with us. Document, or implement your proposed changes.
 
 Keep in mind that this is an incomplete service. Our future requirements include a search endpoint, and processing event driven data updates following our CQRS design.
 We also know that in the future this API will connect to another database which may not be MongoDB.
