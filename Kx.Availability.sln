@@ -11,11 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kx.Availability.Tests", "Kx
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kx.Availability.Data.Mongo", "Kx.Availability.Data.Mongo\Kx.Availability.Data.Mongo.csproj", "{0FC210B7-9460-4915-8F8B-898568F0674F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kx.Core.Common", "Kx.Core.Common\Kx.Core.Common.csproj", "{84F7961E-689C-41D2-8371-4C960310672E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kx.Core.Common", "Kx.Core.Common\Kx.Core.Common.csproj", "{84F7961E-689C-41D2-8371-4C960310672E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kx.Core.HttpMocks", "Kx.Core.HttpMocks\Kx.Core.HttpMocks.csproj", "{43F164A9-8A40-4D68-9058-ACF81F41152B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kx.Core.HttpMocks", "Kx.Core.HttpMocks\Kx.Core.HttpMocks.csproj", "{43F164A9-8A40-4D68-9058-ACF81F41152B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kx.Docker.Common", "Kx.Docker.Common\Kx.Docker.Common.csproj", "{9CA18FEC-4A5D-44D9-9D3A-6D1EA67A0065}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kx.Docker.Common", "Kx.Docker.Common\Kx.Docker.Common.csproj", "{9CA18FEC-4A5D-44D9-9D3A-6D1EA67A0065}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
