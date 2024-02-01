@@ -9,6 +9,9 @@ processing event driven data updates following our CQRS design.
 
 Because this service relies on two other services that you do not have access to you'll have to rely on the tests to ensure that your changes haven't broken anything.
 
+## Prerequisites
+These projects target .NET 8.0 so you'll need to ensure you have the [.NET 8.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) installed. The tests use create a docker container for the MongoDB database that's used in the service so you'll also need to have [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed for this container to run.
+
 ## The Process
 The repository has a single endpoint `/v1/{tenantId}/bedroom-availability/reloadData` and a set of tests to test the logic behind this endpoint. This process replaces the data in a MongoDB database with newly retrieved data from two other services.
 

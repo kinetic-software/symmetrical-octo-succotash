@@ -1,4 +1,3 @@
-using Kx.Core.Common.Exceptions;
 using Kx.Core.Common.HelperClasses;
 using Kx.Core.Common.Interfaces;
 using Serilog;
