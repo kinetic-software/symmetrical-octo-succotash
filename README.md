@@ -12,7 +12,9 @@ Because this service relies on two other services that you do not have access to
 We have a multi-tenant environment that spans over multiple jurisdictions. Some of our APIs also handle PIIs, so security is important to us.
 
 ## Prerequisites
-These projects target .NET 8.0 so you'll need to ensure you have the [.NET 8.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) installed. The tests use create a docker container for the MongoDB database that's used in the service so you'll also need to have [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed for this container to run.
+These projects target .NET 8.0 so you'll need to ensure you have the [.NET 8.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0) installed.
+The tests use create a docker container for the MongoDB database that's used in the service so you'll also need to have [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed for this container to run.
+The first run of the tests will take longer as we will need to pull a docker container.
 
 ## The Process
 The repository has a single endpoint `/v1/{tenantId}/bedroom-availability/reloadData` and a set of tests to test the logic behind this endpoint. This process replaces the data in a MongoDB database with newly retrieved data from two other services.
