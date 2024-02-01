@@ -1,4 +1,3 @@
-
 # Senior C# Backend Test Repo
 
 ## The task
@@ -7,6 +6,8 @@ If you can't fit in the given timeframe, we will evaluate your intentions and an
 
 Keep in mind that this is an incomplete service. Our future requirements include a search endpoint, and
 processing event driven data updates following our CQRS design.
+
+Because this service relies on two other services that you do not have access to you'll have to rely on the tests to ensure that your changes haven't broken anything.
 
 ## The Process
 The repository has a single endpoint `/v1/{tenantId}/bedroom-availability/reloadData` and a set of tests to test the logic behind this endpoint. This process replaces the data in a MongoDB database with newly retrieved data from two other services.
