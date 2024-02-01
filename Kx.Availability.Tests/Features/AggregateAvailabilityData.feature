@@ -51,10 +51,9 @@
       	  "TenantId" : "13",
       	  "StartTime" : "2023-07-04T08:22:53.232+0000",
       	  "StateTime" : "2023-07-04T08:22:54.199+0000",
-      	  "State" : "CycleError",      	  
-      	  "ExceptionMessage" : "Test Exception Message",      	  
-      	  "IsEnded" : true,
-      	  "IsSuccess" : false
+      	  "State" : "CycleError",
+      	  "ExceptionMessage" : "Test Exception Message",
+      	  "IsEnded" : true
       	}
       ]
       """
@@ -98,10 +97,9 @@
       	  "TenantId" : "13",
       	  "StartTime" : "2023-07-04T08:22:53.232+0000",
       	  "StateTime" : "2023-07-04T08:22:54.199+0000",
-      	  "State" : "CycleError",      	  
-      	  "ExceptionMessage" : "Test Exception Message",      	  
-      	  "IsEnded" : true,
-      	  "IsSuccess" : false
+      	  "State" : "CycleError",
+      	  "ExceptionMessage" : "Test Exception Message",
+      	  "IsEnded" : true
       	}
       ]
       """
@@ -190,20 +188,18 @@
       	  "TenantId" : "45",
       	  "StartTime" : "2023-07-04T08:22:53.232+0000",
       	  "StateTime" : "2023-07-04T08:22:54.199+0000",
-      	  "State" : "CycleError",      	  
-      	  "ExceptionMessage" : "Test Exception Message",      	  
-      	  "IsEnded" : false,
-      	  "IsSuccess" : false
+      	  "State" : "CycleError",
+      	  "ExceptionMessage" : "Test Exception Message",
+      	  "IsEnded" : false
       	},
         {
       	  "ID" : "64a3d6dde45a7a6391c883242",
       	  "TenantId" : "13",
       	  "StartTime" : "2023-07-04T08:22:53.232+0000",
       	  "StateTime" : "2023-07-04T08:22:54.199+0000",
-      	  "State" : "CycleError",      	  
-      	  "ExceptionMessage" : "Test Exception Message",      	  
-      	  "IsEnded" : true,
-      	  "IsSuccess" : false
+      	  "State" : "CycleError",
+      	  "ExceptionMessage" : "Test Exception Message",
+      	  "IsEnded" : true
       	}
       ]
       """
@@ -220,10 +216,9 @@
       	  "TenantId" : "13",
       	  "StartTime" : "2023-09-18T11:05:53.232+0000",
       	  "StateTime" : "2023-09-18T11:22:54.199+0000",
-      	  "State" : "CycleError",      	  
-      	  "ExceptionMessage" : "Test Exception Message",      	  
-      	  "IsEnded" : false,
-      	  "IsSuccess" : false
+      	  "State" : "CycleError",
+      	  "ExceptionMessage" : "Test Exception Message",
+      	  "IsEnded" : false
       	}
       ]
       """
@@ -242,10 +237,9 @@
       	{
       	  "ID" : "64a3d6dde45a7a6391c8841f",
       	  "TenantId" : "13",			 
-      	  "State" : "CycleError",      	  
-      	  "ExceptionMessage" : "Test Exception Message",      	  
-      	  "IsEnded" : false,
-      	  "IsSuccess" : false
+      	  "State" : "CycleError",
+      	  "ExceptionMessage" : "Test Exception Message",
+      	  "IsEnded" : false
       	}
       ]
       """

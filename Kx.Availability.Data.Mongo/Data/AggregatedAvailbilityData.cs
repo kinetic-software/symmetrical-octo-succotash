@@ -172,10 +172,9 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
             .AsQueryable()
             .FirstOrDefaultAsync(s => s.ID == _stateRecordIdForThisTenant);
 
-        stateRecord.State = state.ToString();        
+        stateRecord.State = state.ToString();
         stateRecord.ExceptionMessage = exception;
         stateRecord.StateTime = DateTime.UtcNow;
-        stateRecord.IsSuccess = isSuccess;
         stateRecord.IsEnded = isCompleted;
 
         await _stateTableCollection.ReplaceOneAsync(
