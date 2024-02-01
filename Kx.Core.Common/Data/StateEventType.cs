@@ -3,8 +3,5 @@ public enum StateEventType
 {
     CycleStart,
     CycleError,
-    CycleFinished,
-    TimedOut,
-    SubsetLoaded,
-    DataCorrupted
+    CycleFinished
 }

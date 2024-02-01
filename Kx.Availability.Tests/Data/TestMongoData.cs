@@ -1,5 +1,4 @@
 using Kx.Availability.Data.Mongo.Models;
-using Kx.Core.Common.Enums;
 using Kx.Core.Common.Interfaces;
 using MongoDB.Entities;
 

@@ -6,7 +6,5 @@ namespace Kx.Core.Common.Data.MongoDB
     {        
 
         IMongoDatabase GetMongoDatabase();
-
-        Task InitDb();
     }
 }

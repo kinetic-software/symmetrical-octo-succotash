@@ -332,11 +332,6 @@ public class DataAggregationService : IDataAggregationService
         var response = await httpClient.GetAsync(uriBuilder.ToString());
         return await response.Content.ReadFromJsonAsync<PaginatedStoreModel<T>>() ??
                throw new UnprocessableEntityException();
-    }    
-   
-    public async Task<int> CountAsync()
-    {
-        return await _aggregateData.CountAsync();
     }
 
     private async Task MoveTempTenantToLive()

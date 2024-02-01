@@ -22,7 +22,7 @@ public static class DataAggregationModule
         try
         {            
             var results = await dataService.ReloadOneTenantsDataAsync();
-            return ReturnResults<string>.Result(results);
+            return ReturnResults.Result(results);
         }
         catch (Exception ex)
         {

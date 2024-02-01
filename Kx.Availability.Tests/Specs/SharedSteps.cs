@@ -6,7 +6,6 @@ using Kx.Availability.Tests.Data;
 using Kx.Availability.Tests.logging;
 using Kx.Core.Common.Data;
 using Kx.Core.Common.Data.MongoDB;
-using Kx.Core.Common.Enums;
 using Kx.Core.Common.HelperClasses;
 using Kx.Core.Common.Interfaces;
 using Kx.Core.HttpMocks.HttpMocks;
