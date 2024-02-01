@@ -80,11 +80,6 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
         _liveAvailabilityCollection.Indexes.CreateMany(indexesToCreate);
     }
 
-    public IEnumerable<ITenantDataModel> QueryFreely()
-    {
-        return _liveAvailabilityCollection.AsQueryable();
-    }
-
     public HasPreviousRunEndedEnum HasPreviousRunEnded()
     {
         Log.Debug("Checking prev run");
@@ -177,8 +172,7 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
             .AsQueryable()
             .FirstOrDefaultAsync(s => s.ID == _stateRecordIdForThisTenant);
 
-        stateRecord.State = state.ToString();
-        stateRecord.Entity = entity;
+        stateRecord.State = state.ToString();        
         stateRecord.ExceptionMessage = exception;
         stateRecord.StateTime = DateTime.UtcNow;
         stateRecord.IsSuccess = isSuccess;
