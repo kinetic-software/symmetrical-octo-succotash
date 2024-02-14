@@ -76,6 +76,9 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
         var indexBuilder = Builders<AvailabilityMongoModel>.IndexKeys;
         List<CreateIndexModel<AvailabilityMongoModel>> indexesToCreate = new List<CreateIndexModel<AvailabilityMongoModel>>
         {
+            //DC: I havent worked with MongoDB before but at face value, the index creation (below) doesnt look right to me.
+            // I am trying to determine why its "_id" instead of "Id" (as described in the LocationModel class)
+            // In addition, the Meta.ExternalId and Meta.EntityVersions have no meaning to me at this stage - feels irelevant.
             new(indexBuilder.Ascending(x => x.TenantId)),
             new(indexBuilder.Ascending(x => x.TenantId).Ascending(x => x.RoomId)),            
             new(indexBuilder.Ascending(x => x.TenantId).Ascending("Locations._id").Ascending("Locations.Meta.ExternalId").Ascending("Locations.Meta.EntityVersion")),

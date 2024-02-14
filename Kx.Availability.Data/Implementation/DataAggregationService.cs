@@ -225,7 +225,7 @@ public class DataAggregationService : IDataAggregationService
         }
         catch (Exception ex)
         {
-            Task.FromResult(async () => await LogStateErrorsAsync(LocationType.Locations, ex));
+            Task.FromResult(async () => await LogStateErrorsAsync(ChangeTableType.Locations, ex));
             throw;
         }
     }
@@ -263,7 +263,7 @@ public class DataAggregationService : IDataAggregationService
         }
         catch (Exception ex)
         {
-            await LogStateErrorsAsync(LocationType.Locations, ex);
+            await LogStateErrorsAsync(ChangeTableType.Locations, ex);
             throw;
         }
     }
@@ -287,7 +287,7 @@ public class DataAggregationService : IDataAggregationService
         }
         catch (Exception ex)
         {
-            await LogStateErrorsAsync(LocationType.Rooms, ex);
+            await LogStateErrorsAsync(ChangeTableType.Rooms, ex);
             throw;
         }
     }
@@ -338,7 +338,7 @@ public class DataAggregationService : IDataAggregationService
         await _roomsData.DeleteAsync();        
     }
 
-    private async Task LogStateErrorsAsync(LocationType changeTableType, Exception ex)
+    private async Task LogStateErrorsAsync(ChangeTableType changeTableType, Exception ex)
     {
         await LogStateErrorsAsync(changeTableType.ToString(), ex);
     }
