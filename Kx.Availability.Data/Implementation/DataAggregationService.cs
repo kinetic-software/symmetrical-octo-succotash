@@ -47,6 +47,7 @@ public class DataAggregationService : IDataAggregationService
         _coreLocationsUrl = config.GetSection("LOCATIONS_URL").Value;        
         _mongoId = config.GetSection("MongoID").Value ?? null;        
         
+        //DC: Purely an observation, default of 1000 records (per page) feels wrong / dodgy (in the unlikely but possible scenario we havent configured on inside the configuration)
         _pageSize = 1000;
         if (int.TryParse(config.GetSection("DEFAULT_PAGE_SIZE").Value, out var pageSize))
         {
@@ -81,8 +82,7 @@ public class DataAggregationService : IDataAggregationService
     public async Task<(HttpStatusCode statusCode, string result)> ReloadOneTenantsDataAsync()
     {
         try
-        {            
-            
+        {                        
             _aggregateData.StartStateRecord();
             
             Log.Information("Cleaning tmp table");
@@ -91,10 +91,10 @@ public class DataAggregationService : IDataAggregationService
             await CreateIndexes();
                                     
             //1. Get Locations 
-            var locationsTask = DoLocationsAsync();
+            var locationsTask = FetchLocationsAsync();
                                     
             //2. Get the rooms
-            var roomsTask = DoRoomsAsync();
+            var roomsTask = FetchRoomsAsync();
                                             
             await Task.WhenAll(locationsTask, roomsTask);
             
@@ -118,8 +118,7 @@ public class DataAggregationService : IDataAggregationService
     private async Task MashTempTablesIntoTheAvailabilityModelAsync()
     {
         try
-        {
-            
+        {            
             var aggregatedAvailabilityModel = GetAggregatedDataStoreModel();
 
             var rooms = _roomsData.QueryFreely();
@@ -163,7 +162,6 @@ public class DataAggregationService : IDataAggregationService
             Locations = new List<LocationModel>()
         };
     }
-
    
     private IEnumerable<LocationModel> AddLocationModels(BedroomsDataStoreModel room)
     {
@@ -247,19 +245,19 @@ public class DataAggregationService : IDataAggregationService
         await _aggregateData.InsertStateAsync(item);
     }
 
-    private async Task DoLocationsAsync()
+    private async Task FetchLocationsAsync()
     {
         try
         {
-            //paginate
-            var pageOfLocations = await GetLocationsAsync(pageNo: 1);         
+            //DC: Dropped the passing of "1" to GetLocationsAsync() - Looks like it has a default parameter of 1 defined within itself
+            var pageOfLocations = await GetLocationsAsync();         
             await _locationsData.InsertPageAsync<PaginatedStoreModel<LocationsDataStoreModel>>(pageOfLocations);
 
             if (pageOfLocations.TotalPages > 1)
             {
-                for (var i = 2; i <= pageOfLocations.TotalPages; i++)
+                for (var currentPage = 2; currentPage <= pageOfLocations.TotalPages; currentPage++)
                 {
-                    var page = await GetLocationsAsync(pageNo: i);
+                    var page = await GetLocationsAsync(currentPage);
                     await _locationsData.InsertPageAsync<PaginatedStoreModel<LocationsDataStoreModel>>(page);
                 }
             }
@@ -271,21 +269,19 @@ public class DataAggregationService : IDataAggregationService
         }
     }
 
-    private async Task DoRoomsAsync()
+    private async Task FetchRoomsAsync()
     {
         try
         {          
             var pageOfRooms = await GetRoomsFromBedroomsApiAsync();
             await _roomsData.InsertPageAsync<PaginatedStoreModel<BedroomsDataStoreModel>>(pageOfRooms);
          
-
             if (pageOfRooms.TotalPages > 1)
             {
-         
-                for (var i = 2; i <= pageOfRooms.TotalPages; i++)
+                for (var currentPage = 2; currentPage <= pageOfRooms.TotalPages; currentPage++)
                 {
          
-                    var page = await GetRoomsFromBedroomsApiAsync(i);
+                    var page = await GetRoomsFromBedroomsApiAsync(currentPage);
                     await _roomsData.InsertPageAsync<PaginatedStoreModel<BedroomsDataStoreModel>>(page);
                 }         
             }
@@ -297,38 +293,36 @@ public class DataAggregationService : IDataAggregationService
         }
     }
 
-
-
-    private async Task<IPaginatedModel<BedroomsDataStoreModel>> GetRoomsFromBedroomsApiAsync(int pageNo = 1)
+    private async Task<IPaginatedModel<BedroomsDataStoreModel>> GetRoomsFromBedroomsApiAsync(int pageNumber = 1)
     {       
         var uriBuilder = new UriBuilder(_coreBedroomsUrl!)
         {
             Path = $"production/v1/{_tenant.TenantId}/bedrooms/rooms",
-            Query = $"pageSize={_pageSize}&page={pageNo}"
+            Query = $"pageSize={_pageSize}&page={pageNumber}"
         };
         var httpClient = _httpClientFactory.CreateClient(nameof(BedroomsDataStoreModel));
 
         return await GetDataFromApiAsync<BedroomsDataStoreModel>(uriBuilder, httpClient);
     }
 
-
-
-    private async Task<IPaginatedModel<LocationsDataStoreModel>> GetLocationsAsync(int pageNo = 1)
+    private async Task<IPaginatedModel<LocationsDataStoreModel>> GetLocationsAsync(int pageNumber = 1)
     {
         var uriBuilder = new UriBuilder(_coreLocationsUrl!)
         {
             Path = $"production/v1/{_tenant.TenantId}/locations",
-            Query = $"pageSize={_pageSize}&page={pageNo}"
+            Query = $"pageSize={_pageSize}&page={pageNumber}"
         };
         var httpClient = _httpClientFactory.CreateClient(nameof(LocationsDataStoreModel));
 
         return await GetDataFromApiAsync<LocationsDataStoreModel>(uriBuilder, httpClient);
     }
 
-
-
     public async Task<IPaginatedModel<T>> GetDataFromApiAsync<T>(UriBuilder uriBuilder, HttpClient httpClient)
     {
+        //DC: Wanted to pull this http client instantiation into this method given its all "generics" driven; so nameof type "T" will suffice; rather
+        //    than having the line repeated for both the Bedrooms and Locations calls......BUT sadly it "upset" the mocked behaviour inside the Specflow Steps
+        // var httpClient = _httpClientFactory.CreateClient(nameof(T));
+
         var response = await httpClient.GetAsync(uriBuilder.ToString());
         return await response.Content.ReadFromJsonAsync<PaginatedStoreModel<T>>() ??
                throw new UnprocessableEntityException();

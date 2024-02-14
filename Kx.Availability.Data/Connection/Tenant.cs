@@ -18,6 +18,8 @@ public class Tenant : ITenant
     [MemberNotNull(nameof(TenantId))]    
     private void LoadTenant(IHttpContextAccessor httpContextAccessor)
     {        
+        //DC: Just trying to understand the whole CQRS format to this solution BUT feels "wrong" we are in what
+        //    is deemed a "data" project and were attempting to access metadata / information from a HTTP request - should this logic not sit "upstream" - in Kx.Availability?
         var context = httpContextAccessor.HttpContext;
         if (context?.Request.Path != null)
         {                        

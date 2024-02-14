@@ -32,11 +32,15 @@ builder.Services.Configure<JsonOptions>(options =>
 
 // Setting up Serilog for logging.
 Log.Logger = new LoggerConfiguration().CreateBootstrapLogger();
+
+// DC: I Noticed we (at present) only have a single configuration (appSettings.json) - do we want to consider a possible override for dev env's
+// e.g. appSettings.development.json - to allow "Debuig" or even "Verbose" logging?
 builder.Host.UseSerilog(
     (context, services, configuration) =>
         configuration.ReadFrom
             .Configuration(context.Configuration)
             .ReadFrom.Services(services)
+            // DC: Assuming were "ok" with the logger writing to "plain text" rather than JSON, I will leave the below commented out - not sure if this is a trick! :-D
             //.WriteTo.Console(new JsonFormatter())
             .Enrich.FromLogContext()
 );
@@ -77,6 +81,16 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    /* Temporary hack to allow us to read the body multiple times when loading the tenant
+     * for process changes.
+     * DC: whilst I am not entirely sure what this does; I saw the word "temporary hack" so presumed this best sat under the scope of a developmet only runtime.
+     */
+    app.Use(async (context, next) =>
+    {
+        context.Request.EnableBuffering();
+        await next.Invoke();
+    });
 }
 
 app.ConfigureDataAggregationsApi();
@@ -94,7 +108,6 @@ app.UseExceptionHandler(exceptionHandlerApp =>
         var exceptionHandlerPathFeature =
             context.Features.Get<IExceptionHandlerPathFeature>();
 
-
         await context.Response.WriteAsync(exceptionHandlerPathFeature?.Error.ToString() ?? "Unknown Exception");
         // ReSharper disable once TemplateIsNotCompileTimeConstantProblem
         Log.Logger.Error(exceptionHandlerPathFeature?.Error.ToString() ?? "Unknown Exception");
@@ -107,14 +120,6 @@ app.UseExceptionHandler(exceptionHandlerApp =>
  */
 var listenPort = Environment.GetEnvironmentVariable("ASPNET_PORT");
 
-/* Temporary hack to allow us to read the body multiple times when loading the tenant
- * for process changes.
- */
-app.Use(async (context, next) =>
-{
-    context.Request.EnableBuffering();
-    await next.Invoke();    
-});
 
 if (string.IsNullOrWhiteSpace(listenPort))
 {
