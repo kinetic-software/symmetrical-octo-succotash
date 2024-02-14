@@ -85,7 +85,7 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
         _liveAvailabilityCollection.Indexes.CreateMany(indexesToCreate);
     }
 
-    public RunStatus FetchRunStatus()
+    private RunStatus FetchRunStatus()
     {
         Log.Debug("Checking prev run");
         var stateRecord = 

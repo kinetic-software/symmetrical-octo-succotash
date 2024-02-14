@@ -32,7 +32,6 @@ public class DataAggregationService : IDataAggregationService
     public DataAggregationService(IDataAccessFactory dataAccessFactory, ITenant tenant, IConfiguration config,
         IHttpClientFactory httpClientFactory)
     {
-
         _tenant = tenant;
         _httpClientFactory = httpClientFactory;                        
 
