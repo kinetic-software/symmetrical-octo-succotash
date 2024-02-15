@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kx.Core.HttpMocks", "Kx.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kx.Docker.Common", "Kx.Docker.Common\Kx.Docker.Common.csproj", "{9CA18FEC-4A5D-44D9-9D3A-6D1EA67A0065}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kx.Availability.Data.Tests", "Kx.Availability.Data.Tests\Kx.Availability.Data.Tests.csproj", "{DD4FB73A-2F99-421D-AE19-CF4B65679A7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{9CA18FEC-4A5D-44D9-9D3A-6D1EA67A0065}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CA18FEC-4A5D-44D9-9D3A-6D1EA67A0065}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CA18FEC-4A5D-44D9-9D3A-6D1EA67A0065}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD4FB73A-2F99-421D-AE19-CF4B65679A7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD4FB73A-2F99-421D-AE19-CF4B65679A7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD4FB73A-2F99-421D-AE19-CF4B65679A7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD4FB73A-2F99-421D-AE19-CF4B65679A7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
