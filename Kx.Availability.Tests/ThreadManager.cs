@@ -8,7 +8,6 @@ namespace Kx.Availability.Tests;
 /// </summary>
 internal static class ThreadManager 
 {
-
     private static Mutex _connectionMutex = new Mutex();
 
     /// <summary>
@@ -25,6 +24,4 @@ internal static class ThreadManager
     internal static void Cleanup() {
         _connectionMutex.Dispose();
     }
-
-
 }

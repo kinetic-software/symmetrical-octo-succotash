@@ -33,7 +33,6 @@ public class AggregateAvailabilityDataSteps : LoggedTestSteps
     )
     {
         _jsonSettings = jsonSettings.SerializerSettings;
-
         
         _aggregationService = aggregationService;
 
@@ -72,7 +71,7 @@ public class AggregateAvailabilityDataSteps : LoggedTestSteps
     [Then(@"return true")]
     public void ThenReturnTrue()
     {
-        // DC: This is clearly wrong; asserting true is true - gives us no benefit here.
+        // DC: This is clearly wrong; asserting true is true - gives us no benefit here + it's not called from the feature.
         true.Should().Be(true);
     }
 
@@ -93,7 +92,6 @@ public class AggregateAvailabilityDataSteps : LoggedTestSteps
             .Get(uri.ToString());
     }
 
-
     [When(@"I request Tenants Data to be loaded into the Mongodb")]
     public async Task MakeRequest()
     {              
@@ -101,7 +99,6 @@ public class AggregateAvailabilityDataSteps : LoggedTestSteps
         SharedSteps.ActualStatusCode = result.statusCode;
         SharedSteps.ErrorResult = result.result;
     }
-
 
     [Given(@"I have the following data in the state table")]
     public async Task PreloadStateTable(string jsonData)
