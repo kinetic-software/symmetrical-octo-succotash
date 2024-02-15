@@ -62,6 +62,7 @@ public class DataAggregationService : IDataAggregationService
 
     private async Task CreateLocationsIndexes()
     {
+        // DC: Should the index's be re-jigged, Id then Parent Id before Externald Id & Type (possibly)
         var indexBuilder = Builders<LocationsDataStoreModel>.IndexKeys;
         var indexModel = new CreateIndexModel<LocationsDataStoreModel>(indexBuilder
             .Ascending(x => x.ExternalId)
