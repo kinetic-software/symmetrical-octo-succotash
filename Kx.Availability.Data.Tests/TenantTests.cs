@@ -51,6 +51,6 @@ namespace Kx.Availability.Data.Tests
             Assert.Equal("Request path cannot be null or empty", thrownException.Message);
         }
 
-        //DC: I could go on to cover the extistence of the "TenantId" in the request path but given this is just an example, I wont bother writing it.
+        //DC: I could go on to cover the existence of the "TenantId" in the request path but given this is just an example, I wont bother writing it.
     }
 }
