@@ -72,6 +72,7 @@ public class AggregateAvailabilityDataSteps : LoggedTestSteps
     [Then(@"return true")]
     public void ThenReturnTrue()
     {
+        // DC: This is clearly wrong; asserting true is true - gives us no benefit here.
         true.Should().Be(true);
     }
 
