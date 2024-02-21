@@ -2,7 +2,6 @@ using System.Diagnostics.CodeAnalysis;
 using Kx.Core.Common.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Serilog;
 
 namespace Kx.Availability.Data.Connection;
 
@@ -19,7 +18,7 @@ public class Tenant : ITenant
     private void LoadTenant(IHttpContextAccessor httpContextAccessor)
     {        
         var context = httpContextAccessor.HttpContext;
-        if (context?.Request.Path != null)
+        if (!string.IsNullOrEmpty(context?.Request.Path))
         {                        
             var tenantId = context.GetRouteData().Values["tenantId"] as string;
 
@@ -28,11 +27,16 @@ public class Tenant : ITenant
                 throw new BadHttpRequestException("Path does not contain TenantId");
             }
 
+            // DC - This is quite "loosely typed", assuming all TenantId's are integers (for now) we should / could be validating the data is a number; a simple Int.TryParse(... would suffice prior
+            //      to setting it.
             TenantId = tenantId;                            
         }
         else
         {
-            throw new BadHttpRequestException("Path does not contain TenantId");
+            //DC: Would have also tested for "whitespace" but upstream in my test I found out
+            //    when "mocking" setting the Path to an empty string e.g " " - you actually get
+            //    an ArgumentException thrown so it's a test the runtime simply wont allow me to cover!
+            throw new BadHttpRequestException("Request path cannot be null or empty");
         }
     }
 }

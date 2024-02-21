@@ -25,14 +25,12 @@ public class DataAccessFactory : IDataAccessFactory
         return kxDataType switch
         {            
             KxDataType.AvailabilityAggregation => new AggregatedAvailabilityData(_connectionFactory, _tenant, _config, _jsonSettings),          
-            _ => throw new ArgumentException("The data type provided does not have a read implementation")
+            _ => throw new ArgumentException("The data type provided does not have a read implementation") // DC: Feels like this will NEVER be hit? Given KxDataType only has one possible value of "AvailabilityAggregation" defined in it's enum
         };
     }
-
 
     public IDataAggregationStoreAccess<T> GetDataStoreAccess<T>() where T : class
     {
         return new DataStoreAccess<T>(_connectionFactory, _jsonSettings);
     }
-
 }

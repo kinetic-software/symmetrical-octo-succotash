@@ -12,5 +12,4 @@ public interface IDataAccessAggregation : IDataAccess
     Task InsertStateAsync(ITenantDataModel stateRecord);
     Task<int> CountAsync();    
     void StartStateRecord();
-    HasPreviousRunEndedEnum HasPreviousRunEnded();
 }

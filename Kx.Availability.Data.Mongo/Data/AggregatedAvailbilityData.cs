@@ -20,7 +20,8 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
     private readonly IMongoDatabase _database;
     private string _stateRecordIdForThisTenant;
     private readonly IConfiguration _config;
-    
+    private readonly double _timeoutHours;
+
 
     public AggregatedAvailabilityData(IConnectionDefinitionFactory connectionDefinitionFactory, ITenant tenant, IConfiguration config, IKxJsonSettings jsonSettings)
     {
@@ -35,15 +36,19 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
         _liveAvailabilityCollection = _database.GetCollection<AvailabilityMongoModel>(nameof(AvailabilityMongoModel));
         _stateTableCollection = _database.GetCollection<DataLoadStateModel>(nameof(DataLoadStateModel));
         _stateRecordIdForThisTenant = string.Empty;
+        // DC: Converted this into a private field; no need to have it continuously set as a variable inside the HasPreviousRunEnded() method, do it once in this constructor.
+        _timeoutHours = Convert.ToDouble(_config.GetSection("DATA_LOAD_TIMEOUT_HOURS").Value ?? "0.1");
     }
 
     public void StartStateRecord()
     {
+        var forTenantMessageExtension = $"for tenant {_tenant.TenantId}.";
+        //DC: Felt the call to FetchRunStatus() could sit outside of the original try/catch body as we may be "fine"
+        //    OR it may throw the DataException; if the later, there is no need to have that caught (again) by the more generic System.Exception catch.
+        if (FetchRunStatus() != RunStatus.Ended) throw new DataException($"Cannot start a new run {forTenantMessageExtension} The previous run has not ended.");
+
         try
         {
-            //has previous run ended
-            if (HasPreviousRunEnded() != HasPreviousRunEndedEnum.runEnded) throw new DataException($"Cannot start a new run for tenant {_tenant.TenantId} Previous Run Has Not Ended.");
-
             Log.Debug("Starting new run");
 
             AddIndexes();
@@ -58,9 +63,9 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
 
             _stateRecordIdForThisTenant = startState.ID;
         }
-        catch (Exception ex)
+        catch (Exception systemException)
         {
-            Log.Error("cannot create state table: {FullMessage}", ex.ToString());
+            Log.Error(systemException, $"Major exception occured when attempting to start new run {forTenantMessageExtension}");
             throw;
         }
     }
@@ -71,6 +76,9 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
         var indexBuilder = Builders<AvailabilityMongoModel>.IndexKeys;
         List<CreateIndexModel<AvailabilityMongoModel>> indexesToCreate = new List<CreateIndexModel<AvailabilityMongoModel>>
         {
+            //DC: I havent worked with MongoDB before but at face value, the index creation (below) doesnt look right to me.
+            // I am trying to determine why its "_id" instead of "Id" (as described in the LocationModel class)
+            // In addition, the Meta.ExternalId and Meta.EntityVersions have no meaning to me at this stage - feels irelevant.
             new(indexBuilder.Ascending(x => x.TenantId)),
             new(indexBuilder.Ascending(x => x.TenantId).Ascending(x => x.RoomId)),            
             new(indexBuilder.Ascending(x => x.TenantId).Ascending("Locations._id").Ascending("Locations.Meta.ExternalId").Ascending("Locations.Meta.EntityVersion")),
@@ -80,7 +88,7 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
         _liveAvailabilityCollection.Indexes.CreateMany(indexesToCreate);
     }
 
-    public HasPreviousRunEndedEnum HasPreviousRunEnded()
+    private RunStatus FetchRunStatus()
     {
         Log.Debug("Checking prev run");
         var stateRecord = 
@@ -90,22 +98,19 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
                 .FirstOrDefault(s => s.TenantId == _tenant.TenantId);
         if (stateRecord is null)
         {
-            return HasPreviousRunEndedEnum.noStateRecord;
+            return RunStatus.Unknown;
         }
 
-        if (stateRecord.IsEnded) return HasPreviousRunEndedEnum.runEnded;
+        if (stateRecord.IsEnded) return RunStatus.Ended;
 
-        var timeoutHours = Convert.ToDouble(_config.GetSection("DATA_LOAD_TIMEOUT_HOURS").Value ?? "0.1");
-
-        if (stateRecord.StartTime <= DateTime.UtcNow.AddHours(-timeoutHours))
+        if (stateRecord.StartTime <= DateTime.UtcNow.AddHours(-_timeoutHours))
         {
-            return HasPreviousRunEndedEnum.runEnded;
+            return RunStatus.Ended;
         }
 
-        return HasPreviousRunEndedEnum.runNotEnded;
+        return RunStatus.Running;
     }
     
-
     /// <summary>
     /// Deletes the temporary Collection(s) created
     /// </summary>
@@ -114,7 +119,6 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
         await _database.DropCollectionAsync(_collectionName);
     }
     
-
     public async Task InsertAsync(IDataModel? data)
     {               
         var aggAvailabilities = data as AggregatedAvailabilityModel;
@@ -125,7 +129,6 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
             await _tempAvailabilityCollection.InsertManyAsync(availabilities);
         }        
     }
-
 
     public async Task InsertStateAsync(ITenantDataModel stateRecord)
     {
@@ -163,7 +166,6 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
         await DeleteAsync(null);
     }
    
-
     public async Task UpdateStateAsync(
         StateEventType state,
         bool isCompleted = false, string? exception = null)
@@ -187,5 +189,4 @@ public class AggregatedAvailabilityData : IDataAccessAggregation
     {
         return await _liveAvailabilityCollection.AsQueryable().CountAsync();
     }
-
 }

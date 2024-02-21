@@ -37,9 +37,7 @@ public class SharedSteps : LoggedTestSteps
     
     private IStubRequest? _locGetLocationIdsRequest;
     private IStubRequest? _locSearchLocationsRequest;    
-            
-    
-
+                
     public SharedSteps(
         IKxJsonSettings jsonSettings,
         IMongoSettings mongoSettings,
@@ -57,7 +55,6 @@ public class SharedSteps : LoggedTestSteps
         _jsonSettings = jsonSettings.SerializerSettings;
         Tenant = (tenant as TestTenant)!;
         _mongoTestDataAccessFactory = new TestMongoDataAccessFactory();
-
         _httpClientFactory = httpClientFactory;                                     
     }
 
@@ -84,14 +81,11 @@ public class SharedSteps : LoggedTestSteps
         {
             Path = MockRoutes.GetLocationIdsRoute(Tenant.TenantId),
             Query = $"{query}"
-        };
-
-        
+        };      
 
         _locGetLocationIdsRequest = (_httpClientFactory as MockHttpClientFactory)?
             .Host
-            .Get(uri.ToString());
-        
+            .Get(uri.ToString());        
 
         _locGetLocationIdsRequest?.Reply(HttpStatusCode.OK, jsonData, "application/json");
     }
@@ -105,17 +99,13 @@ public class SharedSteps : LoggedTestSteps
             Query = $"{query}"
         };
 
-        
-
         _locSearchLocationsRequest = (_httpClientFactory as MockHttpClientFactory)?
             .Host
             .Get(uri.ToString());
 
         _locSearchLocationsRequest?.Reply(HttpStatusCode.OK, jsonData, "application/json");
     }
-
- 
-
+    
     [Given("I have the following availability in my database:")]
     public async Task InsertItemsIntoDB(string jsonData)
     {
@@ -142,15 +132,13 @@ public class SharedSteps : LoggedTestSteps
             throw;
         }
     }
-
-       
+           
     [Given(@"My tenant id is ""(.*)""")]
     public void SetTenantId(string tenantId)
     {
         Tenant.TenantId = tenantId;
     }          
-
-    
+        
     [Then("I receive a No Content response")]
     public void AssertResponseStatusCodeNoContent()
     {
@@ -177,7 +165,6 @@ public class SharedSteps : LoggedTestSteps
         }
     }
 
-
     [AfterScenario("clearMongoTestData")]
     public async Task ClearMongoTestData()
     {
@@ -194,7 +181,6 @@ public class SharedSteps : LoggedTestSteps
             throw;
         }
     }
-
 
     [BeforeScenario("clearStateData")]
     public async Task ClearStateData()

@@ -23,7 +23,10 @@ public class KxJsonTestSettings : IKxJsonSettings
             DefaultValueHandling = DefaultValueHandling.Include,
             DateFormatHandling = DateFormatHandling.IsoDateFormat,
             DateTimeZoneHandling = DateTimeZoneHandling.Utc,
-            //DateFormatString = "yyyy-MM-dd"
+            //DC: I see this is commented out, but I also see by default the JsonSerializerSettings format would be "yyyy'-'MM'-'dd'T'HH':'mm':'ss.FFFFFFFK"
+            //    If I am not mistaken, deciding to uncomment this could give us mixed (and unstable) results with our test(s) which have a "StartTime" 
+            //    of the same Year/Month and Day - because ordering would then be by chance IF we choose to ignore the hours/minutes/seconds etc
+            //DateFormatString = "yyyy-MM-dd" 
         };
         SerializerSettings.Converters.Add(new StringEnumConverter());
         

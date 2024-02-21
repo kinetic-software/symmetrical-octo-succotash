@@ -44,7 +44,6 @@
       	  "ID" : "64a3d6dde45a7a6391c8841f",
       	  "TenantId" : "13",
       	  "StartTime" : "2023-07-04T08:22:53.232+0000",
-      	  "StateTime" : "2023-07-04T08:22:54.199+0000",
       	  "State" : "CycleError",
       	  "ExceptionMessage" : "Test Exception Message",
       	  "IsEnded" : true
@@ -80,7 +79,6 @@
       	  "ID" : "64a3d6dde45a7a6391c8841f",
       	  "TenantId" : "13",
       	  "StartTime" : "2023-07-04T08:22:53.232+0000",
-      	  "StateTime" : "2023-07-04T08:22:54.199+0000",
       	  "State" : "CycleError",
       	  "ExceptionMessage" : "Test Exception Message",
       	  "IsEnded" : true
@@ -145,7 +143,6 @@
       	  "ID" : "64a3d6dde45a7a6391c8841f",
       	  "TenantId" : "45",
       	  "StartTime" : "2023-07-04T08:22:53.232+0000",
-      	  "StateTime" : "2023-07-04T08:22:54.199+0000",
       	  "State" : "CycleError",
       	  "ExceptionMessage" : "Test Exception Message",
       	  "IsEnded" : false
@@ -153,7 +150,6 @@
         {
       	  "ID" : "64a3d6dde45a7a6391c883242",
       	  "TenantId" : "13",
-      	  "StartTime" : "2023-07-04T08:22:53.232+0000",
       	  "StateTime" : "2023-07-04T08:22:54.199+0000",
       	  "State" : "CycleError",
       	  "ExceptionMessage" : "Test Exception Message",
@@ -173,7 +169,6 @@
       	  "ID" : "64a3d6dde45a7a6391c8841f",
       	  "TenantId" : "13",
       	  "StartTime" : "2023-09-18T11:05:53.232+0000",
-      	  "StateTime" : "2023-09-18T11:22:54.199+0000",
       	  "State" : "CycleError",
       	  "ExceptionMessage" : "Test Exception Message",
       	  "IsEnded" : false
@@ -184,7 +179,7 @@
     Then I receive a ExpectationFailed response
     And I see the following message:
       """
-      Cannot start a new run for tenant 13 Previous Run Has Not Ended.
+      Cannot start a new run for tenant 13. The previous run has not ended.
       """
 
   @clearStateData @clearMongoTestData
